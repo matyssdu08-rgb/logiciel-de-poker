@@ -1,0 +1,691 @@
+/* =========================================
+   FICHIER: style.css
+   Description: Styles pour le gestionnaire de tournoi de poker
+   ========================================= */
+
+/* ========================================= */
+/* VARIABLES CSS */
+/* ========================================= */
+:root {
+    --color-primary: #1a5f3d;
+    --color-secondary: #d4af37;
+    --color-bg: #0f1419;
+    --color-card: #1a1f2e;
+    --color-text: #ffffff;
+    --color-text-muted: #9ca3af;
+    
+    /* Couleurs de statut */
+    --color-playing: #059669;
+    --color-break: #ea580c;
+    
+    /* Couleurs des cartes */
+    --color-level: #1e40af;
+    --color-time: #dc2626;
+    --color-elapsed: #7c3aed;
+    --color-break-card: #ea580c;
+    --color-blinds: #059669;
+    --color-stats: #4338ca;
+}
+
+/* ========================================= */
+/* RESET ET BASE */
+/* ========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: inherit !important;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0f1419 0%, #1a5f3d 50%, #0f1419 100%);
+    min-height: 100vh;
+    color: var(--color-text);
+    padding: 1rem;
+}
+
+/* ========================================= */
+/* CONTAINER PRINCIPAL */
+/* ========================================= */
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* ========================================= */
+/* EN-TÊTE DU TOURNOI */
+/* ========================================= */
+.tournament-header {
+    background: linear-gradient(90deg, #d4af37 0%, #daa520 100%);
+    border-radius: 1rem 1rem 0 0;
+    padding: 2rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tournament-header h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.subtitle {
+    color: #fef3c7;
+    margin-top: 0.5rem;
+    font-size: 1rem;
+}
+
+.btn-settings {
+    background: #b8860b;
+    border: none;
+    color: white;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-settings:hover {
+    background: #8b6914;
+    transform: scale(1.05);
+}
+
+/* Boutons dans l'en-tête (Joueurs, Retour) */
+.header-actions .btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    border: none;
+    text-decoration: none;
+}
+
+.header-actions a {
+    text-decoration: none;
+}
+
+/* ========================================= */
+/* BARRE DE STATUT */
+/* ========================================= */
+.status-bar {
+    padding: 1rem;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5rem;
+    letter-spacing: 0.2em;
+    transition: all 0.3s ease;
+}
+
+.status-playing {
+    background: var(--color-playing);
+}
+
+.status-break {
+    background: var(--color-break);
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* ========================================= */
+/* CONTENU PRINCIPAL */
+/* ========================================= */
+.main-content {
+    background: #1f2937;
+    border-radius: 0 0 1rem 1rem;
+    padding: 2rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* ========================================= */
+/* GRILLE PRINCIPALE */
+/* ========================================= */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+@media (min-width: 1024px) {
+    .grid-container {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+/* ========================================= */
+/* CARTES */
+/* ========================================= */
+.card {
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    border: 2px solid;
+    transition: transform 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+}
+
+.card-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    opacity: 0.8;
+}
+
+
+.card-label-center {
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    text-align: center;
+    opacity: 0.9;
+}
+
+.card-title {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+/* ========================================= */
+/* CARTE NIVEAU */
+/* ========================================= */
+.card-level {
+    background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+    border-color: #3b82f6;
+}
+
+.level-number {
+    font-size: 4.5rem;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+}
+
+/* ========================================= */
+/* CARTE TEMPS */
+/* ========================================= */
+.card-time {
+    background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 100%);
+    border-color: #dc2626;
+    width: 600px;     
+    height: 350px;    
+    padding-top: 70px;    
+    font-size: 5em;  
+}
+
+.time-display {
+    font-size: 4.5rem;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    line-height: 1.2;
+}
+
+.time-display.warning {
+    color: #fbbf24;
+    animation: pulse 1s infinite;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 0.75rem;
+    background: #450a0a;
+    border-radius: 9999px;
+    overflow: hidden;
+    margin-top: 1rem;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #fbbf24 0%, #dc2626 100%);
+    transition: width 1s linear;
+}
+
+/* ========================================= */
+/* CARTE TEMPS ÉCOULÉ */
+/* ========================================= */
+.card-elapsed {
+    background: linear-gradient(135deg, #581c87 0%, #6b21a8 100%);
+    border-color: #a855f7;
+}
+
+.elapsed-time {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    margin-top: 0.5rem;
+}
+
+/* ========================================= */
+/* CARTE BREAK */
+/* ========================================= */
+.card-break {
+    background: linear-gradient(135deg, #7c2d12 0%, #9a3412 100%);
+    border-color: #ea580c;
+}
+
+.break-level {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    margin-top: 0.5rem;
+}
+
+/* ========================================= */
+/* CARTE BLINDS ACTUELLES */
+/* ========================================= */
+.card-current-blinds {
+    background: linear-gradient(135deg, #064e3b 0%, #065f46 100%);
+    border-color: #10b981;
+}
+
+.blind-row {
+    background: #022c22;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.blind-row:last-child {
+    margin-bottom: 0;
+}
+
+.blind-label {
+    font-size: 0.75rem;
+    color: #6ee7b7;
+    margin-bottom: 0.5rem;
+}
+
+.blind-value-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.blind-value {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: white;
+}
+
+.blind-value-big {
+    font-size: 3rem;
+}
+
+.blind-value-small {
+    font-size: 2rem;
+}
+
+/* ========================================= */
+/* CARTE BLINDS SUIVANTES */
+/* ========================================= */
+.card-next-blinds {
+    background: linear-gradient(135deg, #374151 0%, #4b5563 100%);
+    border-color: #6b7280;
+}
+
+.next-blinds-text {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+}
+
+/* ========================================= */
+/* CARTE STATISTIQUES */
+/* ========================================= */
+.card-stats {
+    background: linear-gradient(135deg, #312e81 0%, #3730a3 100%);
+    border-color: #6366f1;
+    font-family: inherit;
+}
+/* Ensure all children use the same font as the page */
+.card-stats, .card-stats * {
+    font: inherit !important;
+}
+/* Ensure stats headings/values match other card labels (NIVEAU ACTUEL, PROCHAIN BREAK) */
+.card-stats .card-label,
+.card-stats .card-label-center,
+.card-stats .card-title {
+    /* match .card-label / .card-label-center / .card-title exactly */
+    font-family: inherit !important;
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    margin-bottom: 0.5rem !important;
+    opacity: 0.8 !important;
+    letter-spacing: 0.05em !important;
+    text-transform: none !important;
+}
+.card-stats .stat-value,
+.card-stats .stat-primary,
+.card-stats .stat-gold {
+    font-family: inherit !important;
+    font-weight: 700 !important;
+}
+/* Ensure card-title inside stats matches .card-title sizing */
+.card-stats .card-title {
+    font-size: 1rem !important;
+    font-weight: bold !important;
+    margin-bottom: 1.5rem !important;
+    text-align: center !important;
+}
+
+.chips-row {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    /* Match the timer card size */
+    width: 600px;
+    height: 350px;
+    margin: 0 auto;
+}
+
+.chip-image-large {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+}
+
+
+/* Group a stat value with inline actions (e.g. Modify) */
+.stat-value-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.stat-primary {
+    font-size: 1.5rem;
+    color: white;
+}
+
+.stat-blue {
+    color: #60a5fa;
+}
+
+.stat-green {
+    color: #34d399;
+}
+
+.stat-gold {
+    font-size: 1.5rem;
+    color: #fbbf24;
+}
+
+.stat-divider {
+    border-top: 1px solid #4338ca;
+    margin: 0.75rem 0;
+}
+
+/* ========================================= */
+/* JETONS */
+/* ========================================= */
+.chip-display {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.3);
+}
+
+.chip-big {
+    width: 60px;
+    height: 60px;
+    font-size: 1.25rem;
+}
+
+.chip-small {
+    width: 45px;
+    height: 45px;
+    font-size: 0.875rem;
+}
+
+.card-chips {
+    background: linear-gradient(135deg, #374151 0%, #4b5563 100%);
+    border-color: #6b7280;
+}
+
+.chips-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+.chip-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.chip-name {
+    font-size: 0.75rem;
+    color: #9ca3af;
+}
+
+/* Images for chips */
+.chip-image, .chip-image-inline {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+.chip-image-inline {
+    width: 40px;
+    height: 40px;
+}
+
+/* Large single-line chips under next blinds */
+.chips-row {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+}
+
+.chip-image-large {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+}
+
+.chips-row .chip-name {
+    font-size: 1rem;
+    color: #d1d5db;
+    margin-top: 0.25rem;
+}
+
+/* ========================================= */
+/* CONTRÔLES */
+/* ========================================= */
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    font-size: 1.125rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    color: black;
+    text-decoration: none;
+}
+
+.btn:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-play {
+    background: #059669;
+}
+
+.btn-play:hover {
+    background: #047857;
+}
+
+.btn-play.playing {
+    background: #dc2626;
+}
+
+.btn-play.playing:hover {
+    background: #b91c1c;
+}
+
+.btn-next {
+    background: #2563eb;
+}
+
+.btn-next:hover {
+    background: #1d4ed8;
+}
+
+.btn-next:disabled {
+    background: #4b5563;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.btn-next:disabled:hover {
+    transform: none;
+}
+
+.btn-reset {
+    background: #d97706;
+}
+
+.btn-reset:hover {
+    background: #b45309;
+}
+
+/* Small button variant for inline actions */
+.btn-small {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.875rem;
+    border-radius: 0.5rem;
+}
+/* Bouton Stack (jaune) */
+.btn-stack {
+    background: var(--color-secondary);
+    color: #102a43; /* texte sombre pour contraste */
+}
+.btn-stack:hover {
+    background: #c89b2e;
+    transform: translateY(-2px) scale(1.03);
+}
+
+/* Disabled state for the Stack button */
+.btn-stack[disabled], .btn-stack.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+/* ========================================= */
+/* MODAL */
+/* ========================================= */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #1f2937;
+    padding: 2rem;
+    border-radius: 1rem;
+    max-width: 500px;
+    width: 90%;
+}
+
+.modal-content h2 {
+    margin-bottom: 1rem;
+}
+
+.modal-content button {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+#btnModifyHeaderStack {
+    background-color: #daa520;
+}
+
+/* ========================================= */
+/* RESPONSIVE */
+/* ========================================= */
+@media (max-width: 768px) {
+    .tournament-header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .level-number {
+        font-size: 3rem;
+    }
+    
+    .time-display {
+        font-size: 2.5rem;
+    }
+    
+    .btn {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+    }
+}

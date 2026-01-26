@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tables - Gestionnaire de Tournoi</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="tables.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="tournament-header">
+      <div class="header-content">
+        <div>
+          <h1>🎲 GESTION DES TABLES</h1>
+        </div>
+        <div class="header-actions">
+          <a class="btn" href="index.html">🏠 Tournoi</a>
+          <a class="btn" href="joueurs.html">👥 Joueurs</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div class="card card-chips">
+        <div class="card-title">Paramètres</div>
+        <label for="playersPerTable">Joueurs maximum par table</label>
+        <input id="playersPerTable" type="number" value="8" min="2" max="12" />
+        <div style="margin-top:1rem;">
+          <button class="btn btn-play" onclick="generateTables()">Générer les tables</button>
+          <button class="btn btn-reset" onclick="resetTables()">Réinitialiser</button>
+          <button class="btn btn-next" onclick="redistributeTables()">Redistribuer</button>
+          <button class="btn" style="background: #7c3aed;" onclick="cleanTablesFromEliminatedPlayers()">Nettoyer les sièges</button>
+        </div>
+      </div>
+
+      <div id="autoFinalMessage" style="display:none; margin-top:1rem; text-align:center;">🏆 Table finale créée</div>
+      <div id="transferLog" style="margin-top:1rem;">
+        <div style="font-weight:600; margin-bottom:0.5rem;">Transferts récents</div>
+        <div id="transferLogEntries" style="color:var(--color-text-muted);"></div>
+      </div>
+
+      <div id="tablesContainer" style="margin-top:1rem;"></div>
+
+      <div id="emptyState" style="margin-top:1rem; text-align:center; color:var(--color-text-muted);">Aucune table créée</div>
+
+    </main>
+  </div>
+
+  <script src="tables.js"></script>
+</body>
+</html>

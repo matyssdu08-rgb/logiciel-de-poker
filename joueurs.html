@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Joueurs - Gestionnaire de Tournoi</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="joueurs.css" />
+</head>
+<body>
+  <!-- Pop-up notification -->
+  <div id="popup" class="popup"></div>
+
+  <div class="container">
+    <header class="tournament-header">
+      <div class="header-content">
+        <div>
+          <h1>👥 GESTION DES JOUEURS</h1>
+        </div>
+        <div class="header-actions">
+          <a class="btn" href="index.html">🏠 Tournoi</a>
+          <a class="btn" href="tables.html">🎲 Tables</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div class="card card-chips">
+        <div class="card-title">➕ Ajouter un joueur</div>
+        <form id="createPlayerForm">
+          <label for="pseudo">Pseudo <span style="color:var(--color-secondary)">*</span></label>
+          <input id="pseudo" name="pseudo" required placeholder="Pseudo du joueur" autocomplete="off" />
+          <div style="margin-top:1rem; display:flex; gap:0.5rem;">
+            <button class="btn btn-play" type="submit">Créer</button>
+            <button class="btn btn-reset" id="btnClear" type="button">Effacer</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="card card-stats" style="margin-top:1.5rem;">
+        <div class="card-title">📋 Liste des joueurs (<span id="playerCount">0</span>)</div>
+        <div id="playersList"></div>
+      </div>
+
+      <div style="margin-top:1rem; text-align:center;">
+        <button class="btn btn-reset" id="btnReset">Réinitialiser tous les joueurs</button>
+      </div>
+    </main>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="joueurs.js"></script>
+</body>
+</html>

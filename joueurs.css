@@ -1,0 +1,141 @@
+/* =========================================
+   FICHIER: joueurs.css
+   Description: Styles pour la page joueurs
+   ========================================= */
+
+/* Formulaire */
+input#pseudo {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    border: 2px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.05);
+    color: var(--color-text);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+input#pseudo:focus {
+    outline: none;
+    border-color: var(--color-secondary);
+    background: rgba(255,255,255,0.08);
+}
+
+/* Liste des joueurs */
+#playersList {
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.player-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    background: rgba(255,255,255,0.03);
+    margin-bottom: 0.75rem;
+    border: 2px solid rgba(255,255,255,0.05);
+    transition: all 0.3s ease;
+}
+
+.player-row:hover {
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.1);
+    transform: translateX(4px);
+}
+
+/* Joueur éliminé */
+.player-row.player-eliminated {
+    opacity: 0.6;
+    background: rgba(220,38,38,0.1);
+    border-color: rgba(220,38,38,0.3);
+}
+
+/* Joueur inactif */
+.player-row.player-inactive {
+    opacity: 0.5;
+    background: rgba(100,100,100,0.1);
+    border-color: rgba(100,100,100,0.2);
+}
+
+.player-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.player-pseudo {
+    font-weight: bold;
+    font-size: 1.25rem;
+    color: white;
+}
+
+.player-meta {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+}
+
+.player-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+/* Boutons actions joueurs */
+.player-actions .btn {
+    background-color: #444; /* gris foncé pour contraste avec fond sombre */
+    color: #fff;           /* texte blanc */
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.player-actions .btn:hover {
+    background-color: #666; /* un peu plus clair au hover */
+    transform: translateY(-2px);
+}
+
+.player-actions .btn:active {
+    transform: translateY(0);
+}
+
+/* Pop-up notifications */
+.popup {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #1f2937;
+  color: #fff;
+  padding: 0.9rem 1.2rem;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 9999;
+  max-width: 360px;
+  line-height: 1.4;
+}
+.popup.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+    .player-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .player-actions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+}

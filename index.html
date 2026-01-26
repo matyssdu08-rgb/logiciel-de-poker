@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Gestionnaire de Tournoi de Poker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="tournament-header">
+      <div class="header-content">
+        <div>
+          <h1 id="tournamentName">CHOOZ POKER CLUB </h1>
+        </div>
+        <div class="header-actions">
+          <a class="btn" href="joueurs.html">👥 Joueurs</a>
+          <a class="btn" href="tables.html">🎲 Tables</a>
+        </div>
+      </div>
+    </header>
+
+    <div id="statusBar" class="status-bar status-playing">
+      <span id="statusText">♠ EN JEU ♥</span>
+    </div>
+
+    <main class="main-content">
+      <div class="grid-container">
+
+        <div class="left-column">
+          <div class="card card-level">
+            <div class="card-label">NIVEAU ACTUEL</div>
+            <div class="level-number" id="currentLevel">1</div>
+          </div>
+
+          <div class="card card-break" id="nextBreakCard">
+            <div class="card-label">PROCHAIN BREAK</div>
+            <div class="break-level" id="nextBreakLevel">Niveau 5</div>
+          </div>
+                    
+          <div class="card card-current-blinds">
+            <div class="card-title">BLINDS ACTUELLES</div>
+            
+
+            <div class="blind-row">
+              <div class="blind-label">SMALL BLIND</div>
+              <div class="blind-value-container">
+                <span class="blind-value" id="currentSB">100</span>
+              </div>
+            </div>
+
+            <div class="blind-row">
+              <div class="blind-label">BIG BLIND</div>
+              <div class="blind-value-container">
+                <span class="blind-value blind-value-big" id="currentBB">100</span>
+              </div>
+            </div>
+
+            <div class="blind-row" id="anteRow" style="display:none;">
+              <div class="blind-label">ANTE</div>
+              <div class="blind-value-container">
+                <span class="blind-value blind-value-small" id="currentAnte">0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="center-column">
+          <div class="card card-time">
+            <div class="card-label">TEMPS RESTANT</div>
+            <div class="time-display" id="timeRemaining">20:00</div>
+            <div class="progress-bar">
+              <div class="progress-fill" id="progressBar"></div>
+            </div>
+          </div>
+
+          <div class="card card-next-blinds" id="nextBlindsCard">
+            <div class="card-label-center">BLINDS SUIVANTES (Niveau <span id="nextLevelNum">2</span>)</div>
+            <div class="next-blinds-text" id="nextBlindsText">100 / 200</div>
+          </div>
+        </div>
+
+        <div class="right-column">
+          <div class="card card-stats">
+            <div class="card-label">STATISTIQUES DU TOURNOI</div>
+
+            <div class="stat-row">
+              <span class="stat-label">Joueurs restants</span>
+              <span class="stat-value stat-primary" id="currentPlayers">0</span>
+            </div>
+
+            <div class="stat-row">
+              <span class="stat-label">Joueurs initiaux</span>
+              <span class="stat-value" id="totalPlayers">0</span>
+            </div>
+
+            <div class="stat-divider"></div>
+
+            <div class="stat-row">
+              <span class="stat-label">Stack de départ</span>
+              <span class="stat-value stat-gold" id="startingStack">10 000</span>
+            </div>
+
+            <div class="stat-row">
+              <span class="stat-label">Stack moyen</span>
+              <span class="stat-value stat-green" id="avgStack">0</span>
+            </div>
+          </div>
+
+          <div class="card card-chips">
+            <div class="card-label-center">VALEUR DES JETONS</div>
+            <div class="chips-grid" id="chipsGrid"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="controls">
+        <button class="btn btn-play" id="btnPlayPause" onclick="togglePlayPause()">
+          <svg id="playIcon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+          <svg id="pauseIcon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+            <rect x="6" y="4" width="4" height="16"></rect>
+            <rect x="14" y="4" width="4" height="16"></rect>
+          </svg>
+          <span id="btnPlayText">DÉMARRER</span>
+        </button>
+
+        <button class="btn btn-next" onclick="nextLevel()">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="5 4 15 12 5 20 5 4"></polygon>
+            <line x1="19" y1="5" x2="19" y2="19"></line>
+          </svg>
+          NIVEAU SUIVANT
+        </button>
+
+        <button class="btn btn-reset" onclick="resetTournament()">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="1 4 1 10 7 10"></polyline>
+            <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+          </svg>
+          RÉINITIALISER
+        </button>
+      </div>
+    </main>
+  </div>
+
+
+  <div id="startingStackModal" class="modal" style="display:none;">
+    <div class="modal-content card card-stats">
+      <h2>💰 Choisissez la structure du tournoi</h2>
+      <div style="margin-top:1rem;">
+        <label style="display:block; margin-bottom:0.5rem;">
+          <input type="radio" name="startingStackOption" value="25000_with_antes"> 25 000 avec ante
+        </label>
+        <label style="display:block; margin-bottom:0.5rem;">
+          <input type="radio" name="startingStackOption" value="20000_no_antes"> 20 000 sans ante
+        </label>
+      </div>
+      <div style="margin-top:1.5rem; display:flex; gap:0.5rem;">
+        <button class="btn btn-play" onclick="applyStartingStackChoice()">Appliquer</button>
+        <button class="btn btn-reset" onclick="skipStartingStackChoice()">Ignorer</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
